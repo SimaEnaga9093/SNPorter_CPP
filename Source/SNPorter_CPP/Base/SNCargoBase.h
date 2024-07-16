@@ -15,7 +15,7 @@ UCLASS()
 class SNPORTER_CPP_API ASNCargoBase : public AActor
 {
 	GENERATED_BODY()
-	
+
 public:	
 	// Sets default values for this actor's properties
 	ASNCargoBase();
