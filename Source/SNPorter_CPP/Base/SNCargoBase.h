@@ -28,9 +28,13 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void Init(FName RowName);
+
 public:
 	FORCEINLINE FRotator GetForwardRotation() { return FRotator(0.0f, 0.0f, CurrentRot * -90.0f); }
 	FORCEINLINE TArray<FVector> GetCargoPosInfos() { return !CargoInfo.PosLaidInfos.IsEmpty() && bIsLaid ? CargoInfo.PosLaidInfos : CargoInfo.PosInfos; }
+
+	FORCEINLINE void SetCurrentPos(FVector NewVector) { CurrentPos = NewVector; }
 
 protected:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "SNPorter")

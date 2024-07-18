@@ -25,9 +25,6 @@ ASNCargoBase::ASNCargoBase()
 void ASNCargoBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	FString contextString = TEXT("ASNCargoBase::BeginPlay FCargoInfo");
-	CargoInfo = *CargoInfoDataTable->FindRow<FCargoInfo>(CargoInfoRowName, contextString);
 }
 
 // Called every frame
@@ -58,4 +55,12 @@ void ASNCargoBase::Tick(float DeltaTime)
 			1.0f
 		);
 	}
+}
+
+void ASNCargoBase::Init(FName RowName)
+{
+	CargoInfoRowName = RowName;
+
+	FString contextString = TEXT("ASNCargoBase::BeginPlay FCargoInfo");
+	CargoInfo = *CargoInfoDataTable->FindRow<FCargoInfo>(CargoInfoRowName, contextString);
 }

@@ -7,6 +7,8 @@
 
 #include "SNCargoGameMode.generated.h"
 
+class ASNCargoBase;
+
 /**
  * 
  */
@@ -23,6 +25,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SNPorter")
 	FVector CargoSize;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SNPorter")
+	TArray<FName> LoadedCargoName;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SNPorter")
+	float BlockOffsetSize = 100.0f;
+
 	UPROPERTY(BlueprintReadWrite, Category = "SNPorter")
-	TMap<FVector, int> LoadedCargoInfo;
+	TMap<FVector, int> LoadedPosInfos;
+
+	UPROPERTY(BlueprintReadWrite, Category = "SNPorter")
+	TArray<TSoftObjectPtr<ASNCargoBase>> LoadedCargoActors;
 };

@@ -7,6 +7,8 @@
 
 #include "SNPlayerController.generated.h"
 
+class ASNCargoBase;
+
 /**
  * 
  */
@@ -21,5 +23,10 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+protected:
+	UPROPERTY(BlueprintReadWrite, Category = "SNPorter")
+	TSoftObjectPtr<ASNCargoBase> SelectedCargo;
 
+	UPROPERTY(BlueprintReadWrite, Category = "SNPorter")
+	int SelectedIndex;
 };
