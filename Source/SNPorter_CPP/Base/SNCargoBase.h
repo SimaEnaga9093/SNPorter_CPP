@@ -35,6 +35,7 @@ public:
 	FORCEINLINE TArray<FVector> GetCargoPosInfos() { return !CargoInfo.PosLaidInfos.IsEmpty() && bIsLaid ? CargoInfo.PosLaidInfos : CargoInfo.PosInfos; }
 
 	FORCEINLINE void SetCurrentPos(FVector NewVector) { CurrentPos = NewVector; }
+	FORCEINLINE FVector GetCurrentPos() { return CurrentPos; }
 
 protected:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "SNPorter")

@@ -28,6 +28,8 @@ void ASNCargoGameMode::BeginPlay()
 
 	for (int i = 0; i < LoadedCargoName.Num(); i++)
 	{
-		LoadedCargoActors.Add(GetWorld()->SpawnActor<ASNCargoBase>(ASNCargoBase::StaticClass()));
+		ASNCargoBase* SpawnedActor = GetWorld()->SpawnActor<ASNCargoBase>(ASNCargoBase::StaticClass());
+		SpawnedActor->Init(LoadedCargoName[i]);
+		LoadedCargoActors.Add(SpawnedActor);
 	}
 }

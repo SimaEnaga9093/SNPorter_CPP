@@ -23,6 +23,14 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	void MoveForward();
+	void MoveBackward();
+	void MoveLeft();
+	void MoveRight();
+	void SelectNext();
+
+	void SelectNextCargo();
+
 protected:
 	UPROPERTY(BlueprintReadWrite, Category = "SNPorter")
 	TSoftObjectPtr<ASNCargoBase> SelectedCargo;
