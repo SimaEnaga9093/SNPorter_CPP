@@ -27,15 +27,15 @@ bool ASNPlayerController::InputKey(const FInputKeyParams& Params)
 	}
 	else if (Params.Key == FKey("Q") && Params.Event == IE_Pressed)
 	{
-
+		TurnLeft();
 	}
 	else if (Params.Key == FKey("E") && Params.Event == IE_Pressed)
 	{
-
+		TurnRight();
 	}
 	else if (Params.Key == FKey("Z") && Params.Event == IE_Pressed)
 	{
-
+		LayCargo();
 	}
 	else if (Params.Key == FKey("SpaceBar") && Params.Event == IE_Pressed)
 	{
@@ -76,6 +76,21 @@ void ASNPlayerController::MoveLeft()
 void ASNPlayerController::MoveRight()
 {
 	SelectedCargo->SetCurrentPos(SelectedCargo->GetCurrentPos() + FVector(0, 1, 0));
+}
+
+void ASNPlayerController::TurnLeft()
+{
+	SelectedCargo->Rotation(true);
+}
+
+void ASNPlayerController::TurnRight()
+{
+	SelectedCargo->Rotation(false);
+}
+
+void ASNPlayerController::LayCargo()
+{
+	SelectedCargo->SetIsLaid(!SelectedCargo->GetIsLaid());
 }
 
 void ASNPlayerController::SelectNext()

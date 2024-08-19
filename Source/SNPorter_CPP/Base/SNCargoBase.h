@@ -30,12 +30,17 @@ public:
 
 	void Init(FName RowName);
 
+	void Rotation(bool bIsLeft);
+
 public:
-	FORCEINLINE FRotator GetForwardRotation() { return FRotator(0.0f, 0.0f, CurrentRot * -90.0f); }
+	FORCEINLINE FRotator GetForwardRotation() { return FRotator(0.0f, CurrentRot * -90.0f, 0.0f); }
 	FORCEINLINE TArray<FVector> GetCargoPosInfos() { return !CargoInfo.PosLaidInfos.IsEmpty() && bIsLaid ? CargoInfo.PosLaidInfos : CargoInfo.PosInfos; }
 
 	FORCEINLINE void SetCurrentPos(FVector NewVector) { CurrentPos = NewVector; }
 	FORCEINLINE FVector GetCurrentPos() { return CurrentPos; }
+
+	FORCEINLINE void SetIsLaid(bool NewIsLaid) { bIsLaid = NewIsLaid; }
+	FORCEINLINE bool GetIsLaid() { return bIsLaid; }
 
 protected:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "SNPorter")

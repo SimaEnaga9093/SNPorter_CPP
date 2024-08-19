@@ -52,7 +52,7 @@ void ASNCargoBase::Tick(float DeltaTime)
 			FLinearColor::Blue,
 			FRotator::ZeroRotator,
 			0.033f,
-			1.0f
+			1.5f
 		);
 	}
 }
@@ -63,4 +63,18 @@ void ASNCargoBase::Init(FName RowName)
 
 	FString contextString = TEXT("ASNCargoBase::BeginPlay FCargoInfo");
 	CargoInfo = *CargoInfoDataTable->FindRow<FCargoInfo>(CargoInfoRowName, contextString);
+}
+
+void ASNCargoBase::Rotation(bool bIsLeft)
+{
+	CurrentRot += bIsLeft ? 1 : -1;
+
+	if (CurrentRot > 3)
+	{
+		CurrentRot = 0;
+	}
+	else if (CurrentRot < 0)
+	{
+		CurrentRot = 3;
+	}
 }
