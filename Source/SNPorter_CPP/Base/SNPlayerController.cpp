@@ -95,7 +95,11 @@ void ASNPlayerController::LayCargo()
 
 void ASNPlayerController::SelectNext()
 {
-	SelectNextCargo();
+	bool bIsSuccess = GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->SummitCargo(SelectedIndex);
+	if (bIsSuccess)
+	{
+		SelectNextCargo();
+	}
 }
 
 void ASNPlayerController::SelectNextCargo()

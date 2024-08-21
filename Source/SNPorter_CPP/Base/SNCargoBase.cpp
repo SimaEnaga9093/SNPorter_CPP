@@ -78,3 +78,35 @@ void ASNCargoBase::Rotation(bool bIsLeft)
 		CurrentRot = 3;
 	}
 }
+
+TArray<FVector> ASNCargoBase::GetCurrentCargoPosInfos()
+{
+	TArray<FVector> infos;
+	for (FVector v : GetCargoPosInfos())
+	{
+		FVector newVector = FVector();
+		switch (CurrentRot)
+		{
+		case 0: // 0
+			newVector = v;
+
+			break;
+		case 1: // 90
+			newVector = FVector((int)v.Y, (int)v.X * -1, (int)v.Z);
+
+			break;
+		case 2: // 180
+			newVector = FVector((int)v.X * -1, (int)v.Y * -1, (int)v.Z);
+
+			break;
+		case 3: // 270
+			newVector = FVector((int)v.Y * -1, (int)v.X, (int)v.Z);
+
+			break;
+		}
+
+		infos.Add(CurrentPos + newVector);
+	}
+
+	return infos;
+}

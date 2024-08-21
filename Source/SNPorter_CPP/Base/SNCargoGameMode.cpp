@@ -19,7 +19,7 @@ void ASNCargoGameMode::BeginPlay()
 			{
 				LoadedPosInfos.Add(FVector(x, y, z), -1);
 
-				DrawDebugBox(GetWorld(), FVector(x, y, z) * BlockOffsetSize, FVector(BlockOffsetSize / 2), FColor::Black, true);
+				DrawDebugBox(GetWorld(), FVector(x, y, z) * BlockOffsetSize, FVector(BlockOffsetSize / 2), FColor::Black, true, -1.0f, 0U, 0.5f);
 			}
 		}
 	}
@@ -32,4 +32,43 @@ void ASNCargoGameMode::BeginPlay()
 		SpawnedActor->Init(LoadedCargoName[i]);
 		LoadedCargoActors.Add(SpawnedActor);
 	}
+}
+
+bool ASNCargoGameMode::SummitCargo(int CargoIndex)
+{
+	ASNCargoBase* TargetCargo = LoadedCargoActors[CargoIndex].Get();
+
+	if (TargetCargo == nullptr)
+	{
+		return false;
+	}
+
+	for (FVector v : TargetCargo->GetCurrentCargoPosInfos())
+	{
+		int targetPos = LoadedPosInfos[v];
+		if (targetPos != -1 && targetPos != CargoIndex)
+		{
+			FVector center = v * 100.0f;
+			FVector extent = FVector::One() * 50.0f;
+
+			UKismetSystemLibrary::DrawDebugBox(
+				GetWorld(),
+				center,
+				extent,
+				FLinearColor::Red,
+				FRotator::ZeroRotator,
+				2.0f,
+				3.0f
+			);
+
+			return false;
+		}
+	}
+
+	for (FVector v : TargetCargo->GetCurrentCargoPosInfos())
+	{
+		LoadedPosInfos[v] = CargoIndex;
+	}
+
+	return true;
 }

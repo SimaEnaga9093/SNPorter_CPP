@@ -16,13 +16,14 @@ UCLASS()
 class SNPORTER_CPP_API ASNCargoGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
-public:
-	FORCEINLINE TArray<TSoftObjectPtr<ASNCargoBase>> GetLoadedCargoActors() { return LoadedCargoActors; }
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+public:
+	bool SummitCargo(int CargoIndex);
+
+	FORCEINLINE TArray<TSoftObjectPtr<ASNCargoBase>> GetLoadedCargoActors() { return LoadedCargoActors; }
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SNPorter")

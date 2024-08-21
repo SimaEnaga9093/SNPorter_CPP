@@ -28,11 +28,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Init(FName RowName);
-
-	void Rotation(bool bIsLeft);
-
 public:
+	void Init(FName RowName);
+	void Rotation(bool bIsLeft);
+	TArray<FVector> GetCurrentCargoPosInfos();
+
 	FORCEINLINE FRotator GetForwardRotation() { return FRotator(0.0f, CurrentRot * -90.0f, 0.0f); }
 	FORCEINLINE TArray<FVector> GetCargoPosInfos() { return !CargoInfo.PosLaidInfos.IsEmpty() && bIsLaid ? CargoInfo.PosLaidInfos : CargoInfo.PosInfos; }
 
