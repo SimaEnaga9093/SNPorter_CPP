@@ -60,22 +60,38 @@ void ASNPlayerController::BeginPlay()
 
 void ASNPlayerController::MoveForward()
 {
-	SelectedCargo->SetCurrentPos(SelectedCargo->GetCurrentPos() + FVector(1, 0, 0));
+	FVector NewPos = SelectedCargo->GetCurrentPos() + FVector(1, 0, 0);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(NewPos))
+	{
+		SelectedCargo->SetCurrentPos(NewPos);
+	}
 }
 
 void ASNPlayerController::MoveBackward()
 {
-	SelectedCargo->SetCurrentPos(SelectedCargo->GetCurrentPos() + FVector(-1, 0, 0));
+	FVector NewPos = SelectedCargo->GetCurrentPos() + FVector(-1, 0, 0);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(NewPos))
+	{
+		SelectedCargo->SetCurrentPos(NewPos);
+	}
 }
 
 void ASNPlayerController::MoveLeft()
 {
-	SelectedCargo->SetCurrentPos(SelectedCargo->GetCurrentPos() + FVector(0, -1, 0));
+	FVector NewPos = SelectedCargo->GetCurrentPos() + FVector(0, -1, 0);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(NewPos))
+	{
+		SelectedCargo->SetCurrentPos(NewPos);
+	}
 }
 
 void ASNPlayerController::MoveRight()
 {
-	SelectedCargo->SetCurrentPos(SelectedCargo->GetCurrentPos() + FVector(0, 1, 0));
+	FVector NewPos = SelectedCargo->GetCurrentPos() + FVector(0, 1, 0);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(NewPos))
+	{
+		SelectedCargo->SetCurrentPos(NewPos);
+	}
 }
 
 void ASNPlayerController::TurnLeft()

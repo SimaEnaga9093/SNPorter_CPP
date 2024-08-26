@@ -45,6 +45,11 @@ bool ASNCargoGameMode::SummitCargo(int CargoIndex)
 
 	for (FVector v : TargetCargo->GetCurrentCargoPosInfos())
 	{
+		if (!LoadedPosInfos.Find(v))
+		{
+			return false;
+		}
+
 		int targetPos = LoadedPosInfos[v];
 		if (targetPos != -1 && targetPos != CargoIndex)
 		{

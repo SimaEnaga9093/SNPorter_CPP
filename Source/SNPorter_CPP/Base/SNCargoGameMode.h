@@ -24,6 +24,7 @@ public:
 	bool SummitCargo(int CargoIndex);
 
 	FORCEINLINE TArray<TSoftObjectPtr<ASNCargoBase>> GetLoadedCargoActors() { return LoadedCargoActors; }
+	FORCEINLINE bool IsValidPos(FVector TargetPos) { return LoadedPosInfos.Find(TargetPos) != nullptr; }
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SNPorter")
