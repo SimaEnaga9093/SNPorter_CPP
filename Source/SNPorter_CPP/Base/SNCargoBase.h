@@ -42,6 +42,8 @@ public:
 	FORCEINLINE void SetIsLaid(bool NewIsLaid) { bIsLaid = NewIsLaid; }
 	FORCEINLINE bool GetIsLaid() { return bIsLaid; }
 
+	FORCEINLINE FCargoInfo GetCargoInfo() { return CargoInfo; }
+
 protected:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "SNPorter")
 	FName CargoInfoRowName;

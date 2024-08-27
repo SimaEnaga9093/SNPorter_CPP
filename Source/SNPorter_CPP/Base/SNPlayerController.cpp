@@ -5,6 +5,7 @@
 
 #include "../Base/SNCargoBase.h"
 #include "../Base/SNCargoGameMode.h"
+#include "../Widget/SNCargoHUDWidget.h"
 
 
 bool ASNPlayerController::InputKey(const FInputKeyParams& Params)
@@ -120,7 +121,9 @@ void ASNPlayerController::SelectNext()
 
 void ASNPlayerController::SelectNextCargo()
 {
-	TArray<TSoftObjectPtr<ASNCargoBase>> Cargos = GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->GetLoadedCargoActors();
+	ASNCargoGameMode* GM = GetWorld()->GetAuthGameMode<ASNCargoGameMode>();
+
+	TArray<TSoftObjectPtr<ASNCargoBase>> Cargos = GM->GetLoadedCargoActors();
 
 	int32 nextIndex = SelectedIndex + 1 >= Cargos.Num() ? 0 : SelectedIndex + 1;
 
@@ -130,6 +133,8 @@ void ASNPlayerController::SelectNextCargo()
 		{
 			SelectedCargo = Cargos[i];
 			SelectedIndex = nextIndex;
+
+			GM->HUDWidget->SetCargoNameText(SelectedCargo->GetCargoInfo().Name);
 
 			return;
 		}

@@ -6,6 +6,8 @@
 #include "Kismet/GameplayStatics.h"
 
 #include "../Base/SNCargoBase.h"
+#include "../Widget/SNCargoHUDWidget.h"
+
 
 void ASNCargoGameMode::BeginPlay()
 {
@@ -31,6 +33,12 @@ void ASNCargoGameMode::BeginPlay()
 		ASNCargoBase* SpawnedActor = GetWorld()->SpawnActor<ASNCargoBase>(ASNCargoBase::StaticClass());
 		SpawnedActor->Init(LoadedCargoName[i]);
 		LoadedCargoActors.Add(SpawnedActor);
+	}
+
+	if (HUDWidgetClass)
+	{
+		HUDWidget = CreateWidget<USNCargoHUDWidget>(GetWorld(), HUDWidgetClass);
+		HUDWidget->AddToViewport(0);
 	}
 }
 

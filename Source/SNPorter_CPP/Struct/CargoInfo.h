@@ -16,7 +16,7 @@ struct SNPORTER_CPP_API FCargoInfo : public FTableRowBase
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	FName Name;
+	FText Name;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<FVector> PosInfos;
