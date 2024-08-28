@@ -7,6 +7,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "UObject/ConstructorHelpers.h"
 
+#include "../Base/SNBlockBase.h"
 
 // Sets default values
 ASNCargoBase::ASNCargoBase()
@@ -61,8 +62,27 @@ void ASNCargoBase::Init(FName RowName)
 {
 	CargoInfoRowName = RowName;
 
-	FString contextString = TEXT("ASNCargoBase::BeginPlay FCargoInfo");
+	FString contextString = TEXT("ASNCargoBase::Init FCargoInfo");
 	CargoInfo = *CargoInfoDataTable->FindRow<FCargoInfo>(CargoInfoRowName, contextString);
+
+	FActorSpawnParameters params;
+	params.Owner = this;
+	params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	for (FVector v : CargoInfo.PosInfos)
+	{
+		ASNBlockBase* SpawnedActor = GetWorld()->SpawnActor<ASNBlockBase>(BlockBaseClass, params);
+		BlockActors.Add(SpawnedActor);
+	}
+
+	UpdatePosInfos();
+}
+
+void ASNCargoBase::Move(FVector AddedVector)
+{
+	CurrentPos += AddedVector;
+
+	UpdatePosInfos();
 }
 
 void ASNCargoBase::Rotation(bool bIsLeft)
@@ -77,6 +97,15 @@ void ASNCargoBase::Rotation(bool bIsLeft)
 	{
 		CurrentRot = 3;
 	}
+
+	UpdatePosInfos();
+}
+
+void ASNCargoBase::Lay(bool NewIsLaid)
+{
+	bIsLaid = NewIsLaid;
+
+	UpdatePosInfos();
 }
 
 TArray<FVector> ASNCargoBase::GetCurrentCargoPosInfos()
@@ -109,4 +138,14 @@ TArray<FVector> ASNCargoBase::GetCurrentCargoPosInfos()
 	}
 
 	return infos;
+}
+
+void ASNCargoBase::UpdatePosInfos()
+{
+	TArray<FVector> infos = GetCurrentCargoPosInfos();
+
+	for (int i = 0; i < infos.Num(); i++)
+	{
+		BlockActors[i]->SetActorLocation(infos[i] * 100);
+	}
 }

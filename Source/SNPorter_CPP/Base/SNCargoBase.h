@@ -10,6 +10,7 @@
 #include "SNCargoBase.generated.h"
 
 class UDataTable;
+class ASNBlockBase;
 
 UCLASS()
 class SNPORTER_CPP_API ASNCargoBase : public AActor
@@ -30,19 +31,24 @@ public:
 
 public:
 	void Init(FName RowName);
+	void Move(FVector AddedVector);
 	void Rotation(bool bIsLeft);
+	void Lay(bool NewIsLaid);
 	TArray<FVector> GetCurrentCargoPosInfos();
 
 	FORCEINLINE FRotator GetForwardRotation() { return FRotator(0.0f, CurrentRot * -90.0f, 0.0f); }
 	FORCEINLINE TArray<FVector> GetCargoPosInfos() { return !CargoInfo.PosLaidInfos.IsEmpty() && bIsLaid ? CargoInfo.PosLaidInfos : CargoInfo.PosInfos; }
 
-	FORCEINLINE void SetCurrentPos(FVector NewVector) { CurrentPos = NewVector; }
+	//FORCEINLINE void SetCurrentPos(FVector NewVector) { CurrentPos = NewVector; }
 	FORCEINLINE FVector GetCurrentPos() { return CurrentPos; }
 
 	FORCEINLINE void SetIsLaid(bool NewIsLaid) { bIsLaid = NewIsLaid; }
 	FORCEINLINE bool GetIsLaid() { return bIsLaid; }
 
 	FORCEINLINE FCargoInfo GetCargoInfo() { return CargoInfo; }
+
+protected:
+	void UpdatePosInfos();
 
 protected:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "SNPorter")
@@ -57,9 +63,15 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Category = "SNPorter")
 	bool bIsLaid = false;
 
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "SNPorter")
+	TSubclassOf<class ASNBlockBase> BlockBaseClass;
+
 	UPROPERTY()
 	class UDataTable* CargoInfoDataTable;
 
 	UPROPERTY()
 	FCargoInfo CargoInfo;
+
+	UPROPERTY()
+	TArray<TSoftObjectPtr<ASNBlockBase>> BlockActors;
 };

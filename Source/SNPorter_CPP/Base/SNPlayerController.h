@@ -27,6 +27,8 @@ protected:
 	void MoveBackward();
 	void MoveLeft();
 	void MoveRight();
+	void MoveUp();
+	void MoveDown();
 	void TurnLeft();
 	void TurnRight();
 	void LayCargo();

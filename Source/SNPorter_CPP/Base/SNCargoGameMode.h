@@ -51,4 +51,7 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "SNPorter")
 	TSubclassOf<USNCargoHUDWidget> HUDWidgetClass;
 
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "SNPorter")
+	TSubclassOf<ASNCargoBase> CargoBaseClass;
+
 };

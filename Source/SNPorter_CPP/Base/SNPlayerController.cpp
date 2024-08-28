@@ -26,6 +26,14 @@ bool ASNPlayerController::InputKey(const FInputKeyParams& Params)
 	{
 		MoveRight();
 	}
+	else if (Params.Key == FKey("R") && Params.Event == IE_Pressed)
+	{
+		MoveUp();
+	}
+	else if (Params.Key == FKey("F") && Params.Event == IE_Pressed)
+	{
+		MoveDown();
+	}
 	else if (Params.Key == FKey("Q") && Params.Event == IE_Pressed)
 	{
 		TurnLeft();
@@ -61,37 +69,55 @@ void ASNPlayerController::BeginPlay()
 
 void ASNPlayerController::MoveForward()
 {
-	FVector NewPos = SelectedCargo->GetCurrentPos() + FVector(1, 0, 0);
-	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(NewPos))
+	FVector pos = FVector(1, 0, 0);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(SelectedCargo->GetCurrentPos() + pos))
 	{
-		SelectedCargo->SetCurrentPos(NewPos);
+		SelectedCargo->Move(pos);
 	}
 }
 
 void ASNPlayerController::MoveBackward()
 {
-	FVector NewPos = SelectedCargo->GetCurrentPos() + FVector(-1, 0, 0);
-	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(NewPos))
+	FVector pos = FVector(-1, 0, 0);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(SelectedCargo->GetCurrentPos() + pos))
 	{
-		SelectedCargo->SetCurrentPos(NewPos);
+		SelectedCargo->Move(pos);
 	}
 }
 
 void ASNPlayerController::MoveLeft()
 {
-	FVector NewPos = SelectedCargo->GetCurrentPos() + FVector(0, -1, 0);
-	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(NewPos))
+	FVector pos = FVector(0, -1, 0);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(SelectedCargo->GetCurrentPos() + pos))
 	{
-		SelectedCargo->SetCurrentPos(NewPos);
+		SelectedCargo->Move(pos);
 	}
 }
 
 void ASNPlayerController::MoveRight()
 {
-	FVector NewPos = SelectedCargo->GetCurrentPos() + FVector(0, 1, 0);
-	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(NewPos))
+	FVector pos = FVector(0, 1, 0);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(SelectedCargo->GetCurrentPos() + pos))
 	{
-		SelectedCargo->SetCurrentPos(NewPos);
+		SelectedCargo->Move(pos);
+	}
+}
+
+void ASNPlayerController::MoveUp()
+{
+	FVector pos = FVector(0, 0, 1);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(SelectedCargo->GetCurrentPos() + pos))
+	{
+		SelectedCargo->Move(pos);
+	}
+}
+
+void ASNPlayerController::MoveDown()
+{
+	FVector pos = FVector(0, 0, -1);
+	if (GetWorld()->GetAuthGameMode<ASNCargoGameMode>()->IsValidPos(SelectedCargo->GetCurrentPos() + pos))
+	{
+		SelectedCargo->Move(pos);
 	}
 }
 
@@ -107,7 +133,7 @@ void ASNPlayerController::TurnRight()
 
 void ASNPlayerController::LayCargo()
 {
-	SelectedCargo->SetIsLaid(!SelectedCargo->GetIsLaid());
+	SelectedCargo->Lay(!SelectedCargo->GetIsLaid());
 }
 
 void ASNPlayerController::SelectNext()

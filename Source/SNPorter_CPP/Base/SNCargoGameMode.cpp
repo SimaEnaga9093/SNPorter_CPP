@@ -30,7 +30,7 @@ void ASNCargoGameMode::BeginPlay()
 
 	for (int i = 0; i < LoadedCargoName.Num(); i++)
 	{
-		ASNCargoBase* SpawnedActor = GetWorld()->SpawnActor<ASNCargoBase>(ASNCargoBase::StaticClass());
+		ASNCargoBase* SpawnedActor = GetWorld()->SpawnActor<ASNCargoBase>(CargoBaseClass);
 		SpawnedActor->Init(LoadedCargoName[i]);
 		LoadedCargoActors.Add(SpawnedActor);
 	}
@@ -75,6 +75,14 @@ bool ASNCargoGameMode::SummitCargo(int CargoIndex)
 			);
 
 			return false;
+		}
+	}
+
+	for (TPair<FVector, int> v : LoadedPosInfos)
+	{
+		if (v.Value == CargoIndex)
+		{
+			LoadedPosInfos[v.Key] = -1;
 		}
 	}
 
